@@ -1,0 +1,119 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="layout-exp">
+    <!-- first column to list categories.-->
+
+    <div class="category glowing-border">
+        <br />
+        <h2 class="text-muted">CATEGORIES</h2>
+        <hr />
+        <h6 class="text-info"><span class="text-muted">Note: </span>Please define list of broad categories of you fixed expenditure</h6>
+        <br />
+        <form action="/category" id="category" onsubmit="return validateForm()" name="category">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" id="category" name="category" placeholder="Category" type="text">
+            </div>
+            <button class="btn btn-primary" type="submit">Insert</button>
+        </form>
+        <div class="container">
+            <table class="table table-dark table-striped table-hover">
+                <thead>
+                    <tr id="category-names">
+                        <th>Sr. No.</th>
+                        <th>Category</th>
+                        <th hidden>id</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in category %}
+                    <tr id="cat{{loop.index}}">
+                        <td>{{loop.index}}</td>
+                        <td id="{{c['CATEGORY']}}" >{{c['CATEGORY']}}</td>
+                        <th hidden>{{c['CATEGORYID']}}</th>
+                        <td id="cat-edit{{loop.index}}">
+                            <a class="fa fa-minus-circle" aria-hidden="true" style="color:darkred" href="#" onclick="editEntry(this.parentNode.id)"></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+    <div class="fixed glowing-border">
+        <br />
+        <h2 class="text-muted">FIXED EXPENSES</h2>
+        <hr />
+        <form action="/fixed" method="post" name="fixed-form" id="fixed-form">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="amount" placeholder="Amount" type="number" step="any">
+            </div>
+            <div class="form-group">
+                <label for="category">Select a category</label>
+                <select class="form-control" id="fixed-form" form="fixed-form" name="category">
+                    <option disabled selected>SELECT ONE</option>
+                    <option>GENERAL</option>
+                    {% for c in category %}
+                    <option>{{c['CATEGORY']}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="comment" placeholder="Comment" type="text">
+            </div>
+            <br />
+            <button class="btn btn-primary" type="submit">Insert</button>
+        </form>
+
+        <div class="container">
+            <table class="table table-light table-striped table-hover">
+                <thead>
+                    <tr id="particular-fexp">
+                        <th>SR. No.</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Comment</th>
+                        <th hidden>id</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in fixed %}
+                    <tr id="fexp{{loop.index}}">
+                        <th id="sr{{loop.index}}" data-html="{{loop.index}}">{{loop.index}}</th>
+                        <th id="cat{{loop.index}}" data-content="{{f["CATEGORY"]}}">{{f["CATEGORY"]}}</th>
+                        <th id="amt{{loop.index}}">{{f["AMOUNT"]}}</th>
+                        <th id="comment{{loop.index}}">{{f["COMMENTS"]}}</th>
+                        <th id="fexpid{{loop.index}}" hidden>{{f["FIXEDEXPENSEID"]}}</th>
+                        <th id="del{{loop.index}}">
+                            <a class="fa fa-minus-circle" aria-hidden="true" style="color:darkred;background-color:white" href="#" onclick="editEntry(this.parentNode.id)"></a>
+                        </th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot style="font-size:larger; text-decoration:underline">
+                    <tr>
+                        <th>TOTAL</th>
+                        <th></th>
+                        <th>{{tamount}}</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <form action="/edit-budget" method="get" name="edit-budget" id="edit-budget">
+            <div class="form-group" id="edit-budget">
+                
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

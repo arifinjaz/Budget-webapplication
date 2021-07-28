@@ -1,0 +1,236 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="layout-expenses glowing-border">
+    <div class="daily-exp glowing-border">
+        <div class="container">
+            <h4>DAILY EXPENDITURE</h4>
+            <hr />
+            <h6>Find results by date range</h6>
+            <form class="form-inline" action="/expenses" method="post" name="exp-filter" id="exp-filter">
+                <div class="form-group">
+                    <label for="from-date"><strong>From Date: </strong></label>
+                    <input autocomplete="off" autofocus class="form-control" name="from-date" id="from-date" placeholder="From Date" type="date" step="any" />
+                    <script>
+                        var date = new Date();
+                        date.setMonth(0);
+                        document.getElementById('from-date').valueAsDate = date;
+                    </script>
+                </div>
+                <div class="form-group">
+                    <label for="to-date"><strong>To Date: </strong></label>
+                    <input autocomplete="off" autofocus class="form-control" name="to-date" id="to-date" placeholder="To Date" type="date" step="any" />
+                    <script>
+                        var date = new Date();
+                        date.setMonth(1);
+                        document.getElementById('to-date').valueAsDate = date;
+                    </script>
+                </div>
+            </form>
+            <div class="container">
+                <button class="btn btn-primary" form="exp-filter" value="Search">Search</button>
+            </div>
+        </div>
+        <hr />
+        <div class="container">
+            <table class="table table-light table-striped table-hover">
+                <thead>
+                    <tr id="expenses-particular">
+                        <th>Sr. No.</th>
+                        <th>Category</th>
+                        <th>Sub-Category</th>
+                        <th>Amount</th>
+                        <th hidden>id</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in expenses %}
+                    <tr id="exp{{loop.index}}">
+                        <td>{{loop.index}}</td>
+                        <td>{{e['CATEGORY']}}</td>
+                        <td>{{e['SUBCATNAME']}}</td>
+                        <td>{{e['AMOUNT']}}</td>
+                        <td hidden>{{e['EXPENSESID']}}</td>
+                        <td id="sub-del{{loop.index}}">
+                            <a class="fa fa-minus-circle" aria-hidden="true" style="color:darkred" href="#" onclick="editexpenses(this.parentNode.id)"></a>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <hr />
+
+            <form action="/expenses" method="post" name="edit-expenses" id="edit-expenses">
+                <div class="form-group" id="edit-expenses" style="text-align:left;">
+                    <!--function to create HTML tags here-->
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+    <div class="stats glowing-border">
+        <!--//2nd section-->
+
+        <div class="container">
+            <h4>STATISTICS</h4>
+            <hr />
+            <h6>Find results by date range</h6>
+            <br />
+
+            <form class="form-inline" action="/expenses" method="get" name="exp-filter" id="exp-filter">
+                <!--<div class="form-group">
+        <label for="from-date"><strong>From Date: </strong></label>
+        <input autocomplete="off" autofocus class="form-control" name="from-date" id="from-date" placeholder="From Date" type="date" step="any">
+        <script>
+            var date = new Date();
+            date.setMonth(-1);
+            document.getElementById('from-date').valueAsDate = date;
+        </script>
+    </div>
+    <div class="form-group">
+        <label for="to-date"><strong>To Date: </strong></label>
+        <input autocomplete="off" autofocus class="form-control" name="to-date" id="to-date" placeholder="To Date" type="date" step="any">
+        <script>
+            var date = new Date();
+            date.setMonth(0);
+            document.getElementById('to-date').valueAsDate = date;
+        </script>
+    </div>-->
+                <div class="form-group">
+                    <label for="from-date"><strong>MONTH</strong></label>
+                    <input autocomplete="off" autofocus class="form-control" name="from-date" id="from-date" min="2020-12" value="{{fdate}}" type="month" step="any" onchange="this.form.submit()"/>
+                </div>
+
+                <hr />
+
+                <div class="form-group">
+                    <label for="category"><strong>CATEGORY</strong></label>
+                    <select name="category" id="category" class="form-control" searchable="Select a Category" onchange="this.form.submit()">
+                        {% if not cate %}
+                        <option disabled selected>Select a Category</option>
+                        {% for c in categories %}
+                        <option>{{c['CATEGORY']}}</option>
+                        {% endfor %}
+
+                        {% else %}
+                        <option selected>{{cate}}</option>
+                        <option> -- select none -- </option>
+                        {% for c in categories %}
+                        <option>{{c['CATEGORY']}}</option>
+                        {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+
+                    <!--<select class="insert-exp1 glowing-border" id="subcategory" name="subcategory" searchable="Select a Sub-Category">
+        {% if not subcategory %}
+        <option disabled selected>Select a Sub-category</option>
+        {% else %}
+        {% for c in subcategory %}
+        <option>{{c['SUBCATNAME']}}</option>
+        {% endfor %}
+        {%endif%}
+    </select>-->
+            </form>
+            <div class="container">
+                <button class="btn btn-primary" form="exp-filter" value="Search">Search</button>
+            </div>
+        </div>
+        
+        <hr />
+        <div class="container">
+            <h6 style="text-align:center;">Category wise data</h6>
+            <br />
+            <table class="table table-dark table-striped table-hover">
+                <thead>
+                    <tr id="CATEGORY-STATS">
+                        <th>Sr. No.</th>
+                        <th>CATEGORY</th>
+                        <th>AMOUNT SPENT</th>
+                        <th>BALANCE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in categorydata %}
+                    <tr id="exp{{loop.index}}">
+                        <td>{{loop.index}}</td>
+                        <td>{{c['CATEGORY']}}</td>
+                        <td>{{c['AMOUNTSPENT']}}</td>
+                        <td>{{(c['TOTALASSIGNED']-c['AMOUNTSPENT'])}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                {% if totalamount %}
+                <tfoot style="text-decoration:underline">
+                    <tr>
+                        <th colspan="1">TOTAL SPENT</th>
+                        <th colspan="1">{{totalspent}}</th>
+                        <th colspan="1">TOTAL BUDGET</th>
+                        <th colspan="1">{{totalamount}}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">BALANCE</th>
+                        <th colspan="2">{{balance}}</th>
+                    </tr>
+                </tfoot>
+                {% endif %}
+            </table>
+            <hr />
+            <hr />
+
+            {% if cate %}
+            <h6 style="text-align:center;">Sub-Category wise data</h6>
+            <br />
+            <div class="container">
+                <table class="table table-dark table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>CATEGORY</th>
+                            <th>SUB-CATEGORY</th>
+                            <th>TOTAL SPENT</th>
+                            <th>TOTAL ALLOCATION</th>
+                            <th>BALANCE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in subcategorydata %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>{{s['CATEGORY']}}</td>
+                            <td>{{s['SUBCATNAME']}}</td>
+                            <td>{{s['AMOUNTSPENT']}}</td>
+                            <td>{{s['TOTALASSIGNED']}}</td>
+                            <td>{{(s['TOTALASSIGNED'] - s['AMOUNTSPENT'])}}</td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                    <tfoot style="text-decoration:underline">
+                        <tr>
+                            <th colspan="2">TOTAL SPENT</th>
+                            <th colspan="1">{{ctotalspent}}</th>
+                            <th colspan="2">TOTAL BUDGET</th>
+                            <th colspan="1">{{ctotalamount}}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="3">BALANCE</th>
+                            <th colspan="3">{{cbalance}}</th>
+                        </tr>
+
+                    </tfoot>
+                </table>
+            </div>
+
+            {% endif %}
+            <hr />
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

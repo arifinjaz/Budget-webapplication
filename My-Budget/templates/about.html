@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!--<h2>{{ title }}.</h2>
+<h3>{{ message }}</h3>-->
+
+<div class="grid-container">
+    <header class="header">
+            <div class="header__search">
+                <form action="/overview" id="search" method="get">
+                    <div class="input-group mb-3">
+                        <input type="search" class="form-control" placeholder="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="submit">Go</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="header__avatar">
+                <div class="dropdown">
+                    <button aria-expanded="false" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" id="myaccount" type="button">
+                        My Account
+                        <span class="fa fa-user-circle" aria-hidden="true"></span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Change Password</a>
+                        <a class="dropdown-item" href="#">
+                            Logout
+                            <span class="fa fa-sign-out" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+    </header>
+    <aside class="sidenav">
+        <ul class="sidenav__list">
+            <li class="sidenav__list-item">
+            <a href="/budget.html" >Budget</a>
+            </li>
+            <li class="sidenav__list-item">Item Two</li>
+            <li class="sidenav__list-item">Item Three</li>
+            <li class="sidenav__list-item">Item Four</li>
+            <li class="sidenav__list-item">Item Five</li>
+        </ul>
+    </aside>
+    <main class="main">
+        <div class="main-overview">
+            <div class="overviewcard">
+                <div class="overviewcard__icon">Overview</div>
+                <div class="overviewcard__info">Card</div>
+            </div>
+            <div class="overviewcard">
+                <div class="overviewcard__icon">Overview</div>
+                <div class="overviewcard__info">Card</div>
+            </div>
+            <div class="overviewcard">
+                <div class="overviewcard__icon">Overview</div>
+                <div class="overviewcard__info">Card</div>
+            </div>
+            <div class="overviewcard">
+                <div class="overviewcard__icon">Overview</div>
+                <div class="overviewcard__info">Card</div>
+            </div>
+        </div>
+        <div class="main-cards">
+            <div class="card">Card</div>
+            <div class="card">Card</div>
+            <div class="card">Card</div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer__copyright">&copy; 2018 MTH</div>
+        <div class="footer__signature">Made with love by pure genius</div>
+    </footer>
+</div>
+{% endblock %}

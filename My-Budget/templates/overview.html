@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - My Flask Application</title>
+    <script src="https://kit.fontawesome.com/e7593169b5.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/StyleSheet.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/layout.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
+    <script src="/static/scripts/modernizr-2.6.2.js"></script>
+    <script type="text/javascript" src="/static/scripts/templatescript.js"></script>
+    <script type="text/javascript" src="/static/scripts/Chart.js"></script>
+    <!--<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+    <div class="grid-container">
+        <header class="header">
+            <div class="header__search">
+                <form action="/overview" id="search" method="get">
+                    <div class="input-group mb-3">
+                        <input type="search" class="form-control" placeholder="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="submit">Go</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="header__avatar">
+                <div class="dropdown">
+                    <button aria-expanded="false" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" id="myaccount" type="button">
+                        My Account, {{username}}
+                        <span class="fa fa-user-circle" aria-hidden="true"></span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Change Password</a>
+                        <a class="dropdown-item" href="#">
+                            Logout
+                            <span class="fa fa-sign-out" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <aside class="sidenav">
+            <ul class="sidenav__list">
+                <li class="sidenav__list-item">
+                    <a href="/fexp">FIXED EXPENDITURE</a>
+                </li>
+                <li class="sidenav__list-item">
+                    <a href="/subcat">SUB-CATEGORY</a>
+                </li>
+                <li class="sidenav__list-item">
+                    <a href="/expenses">DAILY EXPENSES</a>
+                </li>
+                <!--<li class="sidenav__list-item">Item Four</li>
+                <li c--><!--lass="sidenav__list-item">Item Five</li>-->
+            </ul>
+        </aside>
+        <main class="main">
+            <div class="main-overview">
+                <div class="overviewcard">
+                    <div class="overviewcard__icon overview-text"><BOLD>TOTAL BUDGET</BOLD></div>
+                    <div class="overviewcard__info overview-text"><span class="fa fa-inr" aria-hidden="true"></span>
+                    {{totalamount}}</div>
+                </div>
+                <div class="overviewcard">
+                    <div class="overviewcard__icon overview-text">TOTAL SPENT</div>
+                    <div class="overviewcard__info overview-text"><span class="fa fa-inr" aria-hidden="true"></span>
+                    {{totalspent}}</div>
+                </div>
+                <div class="overviewcard">
+                    <div class="overviewcard__icon overview-text">OVER-SPENT CATEGORY</div>
+
+                    {% if overspent %}
+                    <div class="overviewcard__info overview-text"><span class="fa fa-exclamation-circle" aria-hidden="true"></span>
+                        {{overspent[0]}}
+                    </div>
+                    {%else%}
+                    <div class="overviewcard__info overview-text"><span class="fa fa-smile-o" aria-hidden="true"></span>
+                        No Over-Spent
+                    </div>
+                    {%endif%}
+                </div>
+                <div class="overviewcard">
+                    <div class="overviewcard__icon overview-text">BALANCE</div>
+                    <div class="overviewcard__info overview-text"><span class="fa fa-inr" aria-hidden="true"></span>
+                    {{balance}}</div>
+                </div>
+            </div>
+            <div class="main-cards">
+                <div class="card">
+                    <div id="piechart"></div>
+                    <meta id="famount" data-famount="{{ famount }}"/>
+                    
+
+
+                        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+                        <script type="text/javascript">
+                            // Load google charts
+                            google.charts.load('current', { 'packages': ['corechart'] });
+                            google.charts.setOnLoadCallback(drawChart);
+
+                            // Draw the chart and set the chart values
+                            function drawChart() {
+
+                                var test = JSON.parse('{{famount|tojson|safe}}')
+                                var len = Object.keys(test).length;
+
+                                var chartdata = new google.visualization.DataTable();
+                                chartdata.addColumn('string', 'Category');
+                                chartdata.addColumn('number', 'Amount');
+
+                                for (var i = 0; i < len; i++) {
+
+                                    chartdata.addRow([test[i].CATEGORY, test[i].AMOUNT]);
+                                }
+
+
+                                // Optional; add a title and set the width and height of the chart
+                                var options = { 'title': 'BUDGET ALLOCATION', 'width': 750, 'height': 600 };
+
+                                // Display the chart inside the <div> element with id="piechart"
+                                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                                chart.draw(chartdata, options);
+                            }
+                        </script>
+                </div>
+                <div class="card">
+                    <h4>Please Enter Your Daily Expenses Here</h4>
+                    <div class="divt">
+                        <form action="/overview" id="expenses" name="expenses" method="post">
+                            <input class="insert-exp glowing-border" id="particular1" name="particular" type="text" value="{{description}}" autofocus autocomplete="on" placeholder="Discription" />
+                            <input class="insert-exp glowing-border" id="amount1" name="amount" type="number" value="{{amount}}" min="1" autofocus autocomplete="on" placeholder="Amount" />
+                            
+                            <div class="container">
+                                <select name="category" id="category" class="insert-exp1 glowing-border" searchable="Select a Category" onchange="this.form.submit()">
+                                    {% if not subcategory %}
+                                    <option disabled selected>Select a Category</option>
+                                    {% for c in categories %}
+                                    <option>{{c['CATEGORY']}}</option>
+                                    {% endfor %}
+
+                                    {% else %}
+                                    <option selected>{{cat}}</option>
+                                    {% for c in categories %}
+                                    <option>{{c['CATEGORY']}}</option>
+                                    {% endfor %}
+                                    {% endif %}
+                                </select>
+
+                                <select class="insert-exp1 glowing-border" id="subcategory" name="subcategory" searchable="Select a Sub-Category">
+                                    {% if not subcategory %}
+                                    <option disabled selected>Select a Sub-category</option>
+                                    {% else %}
+                                    {% for c in subcategory %}
+                                    <option>{{c['SUBCATNAME']}}</option>
+                                    {% endfor %}
+                                    {%endif%}
+                                </select>
+
+                                <input class="insert-exp1 glowing-border" id="datePicker" name="date" type="date" placeholder="select a date" />
+                                <script>
+                                    document.getElementById('datePicker').valueAsDate = new Date();
+                                </script>
+                                <hr />
+                                <!--<input type="submit" class="insert-submit" onsubmit="this.form.submit()"/>-->
+
+                                <button class="insert-submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                   
+                </div>
+
+
+
+                <div class="card" id="top10">
+                    <h5>LAST 5 EXPENDITURE RECORD</h5>
+                    <table class="table table-dark table-striped table-hover">
+                        <thead>
+                            <tr id="subcat-particular">
+                                <th>Sr. No.</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Sub-Category</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for e in expenses %}
+                            <tr>
+                                <td>{{loop.index}}</td>
+                                <td>{{e['EXPENSESDESCRIPTION']}}</td>
+                                <td contenteditable="true">{{e['CATEGORY']}}</td>
+                                <td contenteditable="true">{{e['SUBCATNAME']}}</td>
+                                <td contenteditable="true">{{e['EXPENDITURE']}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+                </div>
+                <hr />
+</main>
+
+        <footer class="footer">
+            <p>&copy; {{ year }} - My Budget</p>
+        </footer>
+    </div>
+
+</body>
+</html>

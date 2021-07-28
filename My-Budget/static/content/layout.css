@@ -1,0 +1,161 @@
+﻿.bag {
+    /*background-image: url("img/background1.jpg");*/
+    background-color:antiquewhite;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #3E3E3E;
+}
+
+.topnav a {
+    float: left;
+    text-decoration: none;
+    color: aliceblue;
+    text-align: center;
+    font-family:'Lucida Sans Unicode';
+    font-size: 17px;
+    padding: 14px 16px;
+}
+
+    .topnav a:hover {
+        text-decoration:none;
+        background-color: #9b9696;
+        color:black;
+    }
+
+.logout {
+    float: right;
+    text-decoration: none;
+    background-color:cornsilk;
+    text-align:center;
+}
+.foot{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background-color: #343232;
+    color:antiquewhite;
+    text-align:center;
+}
+
+.layout-exp {
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    grid-template-areas: "category" "fixed";
+    height: 100%;
+    width: auto;
+}
+
+.category {
+    background-color: aliceblue;
+    height: auto;
+    text-align: center;
+}
+.fixed {
+    border-right: double;
+    background-color: aliceblue;
+    height: auto;
+    text-align: center;
+}
+
+.sub-category {
+    background-color: aliceblue;
+    height: auto;
+    text-align:center;
+}
+
+.glowing-border {
+    border: 2px solid #dadada;
+    border-radius: 7px;
+}
+
+.fixed-form{
+    text-anchor:start;
+    text-align:left;
+    width:auto;
+
+}
+
+.label{
+    text-align:left;
+    text-shadow:initial;
+    text-decoration:double;
+    font:bold;
+}
+
+.insert-exp {
+    width: 45%;
+    padding: 15px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 85%;
+    align-items: center;
+    margin: auto;
+    align-content: center;
+}
+
+.insert-exp1 {
+    width: 30%;
+    padding: 15px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 75%;
+    align-items: center;
+    margin: auto;
+    align-content: center;
+}
+
+
+.insert-submit {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    align-items: center;
+    margin: auto;
+    align-content: center;
+}
+
+    .insert-submit:hover {
+        background-color:darkgreen ;
+    }
+
+
+    .divt {
+        border-radius: 5px;
+        width: 100%;
+        background-color: #f2f2f2;
+        padding: 15px;
+        margin: auto;
+        align-content: center;
+    }
+
+
+.layout-expenses {
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    grid-template-areas: "daily-exp" "stats";
+    height: 100%;
+    width: auto;
+}
+
+.daily-exp {
+    background-color: aliceblue;
+    height: auto;
+    text-align: center;
+}
+
+.stats {
+    border-right: double;
+    background-color: aliceblue;
+    height: auto;
+    text-align: center;
+}

@@ -1,0 +1,107 @@
+﻿{% extends "layout.html" %}
+{% set active_page = subcat %}
+
+{% block content %}
+
+<div class="sub-category glowing-border">
+    <br />
+    <h3 class="text-muted">FIXED EXPENSES: SUB-CATERORY</h3>
+    <hr />
+    <div class="container">
+        <form action="/subcat" method="get" name="sub-category" id="sub-category">
+            <div class="form-group">
+                <label class="label" for="sub-category">Select a category for sub-category</label>
+                <select class="form-control" id="category" form="sub-category" name="category" onchange="this.form.submit()">
+                    <option disabled selected>{{category}}</option>
+                    <option>GENERAL</option>
+                    {% for c in scategory %}
+                    <option>{{c['CATEGORY']}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!--<button class="btn btn-primary" type="submit">Submit</button>-->
+            <hr />
+            {% if amount != 0 %}
+            <p class="label">Total Budget = <b>{{amount}}</b> <br />Please define Subcategory expenses below</p>
+
+            {%endif %}
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" id="subcat-name" name="subcat-name" placeholder="Sub-Category Name" type="text">
+            </div>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" id="subcat-amt" oninput="return ValidateAmount({{amount}})" name="subcat-amt" placeholder="Sub-Category Amount" type="number" />
+            </div>
+            <div class="form-group">
+                <input hidden="hidden" autofocus class="form-control" id="hcat"  name="hcat" value="{{category}}" placeholder="Sub-Category Amount" type="text" />
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+            <meta id="amt" data-amount="{{amount}}" />
+        </form>
+    </div>
+
+    <!--<div class="container">
+        <form action="/subcat" name="subcat" id="subcat" onsubmit="return ValidateAmount({{amount}})">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" id="subcat-name" name="subcat-name" placeholder="Sub-Category Name" type="text">
+            </div>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" id="subcat-amt" name="subcat-amt" placeholder="Sub-Category Amount" type="number" />
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>-->
+    <hr />
+    <div class="container">
+        <table class="table table-light table-striped table-hover">
+            <thead>
+                <tr id="subcat-particular">
+                    <th>Sr. No.</th>
+                    <th>Category</th>
+                    <th>Sub-Category</th>
+                    <th>Amount</th>
+                    <th hidden >id</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in subcat %}
+                <tr id="subcat{{loop.index}}">
+                    <td>{{loop.index}}</td>
+                    <td>{{c['CATEGORY']}}</td>
+                    <td>{{c['SUBCATNAME']}}</td>
+                    <td>{{c['AMOUNT']}}</td>
+                    <td hidden >{{c['SUBCATID']}}</td>
+                    <td id="sub-del{{loop.index}}">
+                        <a class="fa fa-minus-circle" aria-hidden="true" style="color:darkred" href="#" onclick="editsubcategory(this.parentNode.id)"></a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% if totalamount %}
+            <tfoot style="text-decoration:underline">
+                <tr>
+                    <th colspan="3">BALANCE</th>
+                    <th colspan="2">{{balance}}</th>
+                </tr>
+                <tr>
+                    <th colspan="3">TOTAL AMOUNT ASSIGNED</th>
+                    <th colspan="2">{{totalamount}}</th>
+                </tr>
+            </tfoot>
+            {% endif %}
+        </table>
+        <hr />
+
+        <form action="/edit-subcat" method="get" name="edit-subcat" id="edit-subcat">
+            <div class="form-group" id="edit-subcat" style="text-align:left;">
+                <!--function to create HTML tags here-->
+            </div>
+        </form>
+    </div> 
+    <div class="container">
+
+    </div>
+</div>
+
+    {% endblock %}

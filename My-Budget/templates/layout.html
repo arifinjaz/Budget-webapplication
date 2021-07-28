@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - My Flask Application</title>
+    <script src="https://kit.fontawesome.com/e7593169b5.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/StyleSheet.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/layout.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
+    <script type="text/javascript" src="/static/scripts/templatescript.js"></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body class="bag">
+    <div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for m in messages %}
+
+        <script>
+            alert("{{m}}")
+            //var message = {{ m }};
+            //flash_alert()
+        </script>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+
+    </div>
+    <nav class="navbar navbar-expand-md navbar-light bg-light border">
+        <a class="navbar-brand" href="/overview">
+            MY BUDGET
+            <span class="fas fa-balance-scale"></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+                aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+            {% set navigation_bar = [
+            ('/fexp', 'Fixed Expenditure', 'Fixed Expenditure'),
+            ('/subcat', 'subcat', 'SUB-CATEGORY'),
+            ('/expenses', 'expenses', 'DAILY EXPENSES')
+            ] %}
+
+            {% set active_page = active_page|default('Fixed Expenditure') -%}
+
+            <ul class="navbar-nav mr-auto" id="navigation">
+                {% for href, id, caption in navigation_bar -%}
+                {% if id == active_page %}
+                <li class="nav-link active">
+                    <a class="nav-link active" href="{{ href|e }}">{{ caption|e }}</a>
+                </li>
+                {% else %}
+                <li class="nav-link">
+                    <a class="nav-link" href="{{ href|e }}">{{ caption|e }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+
+            <!--<ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link active" href="/budget">
+                Fixed Expenditure
+                <span class="sr-only">(current)</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/subcat">SUB-CATEGORY</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/dailyexp">DAILY EXPENDITURE</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+        </li>
+    </ul>-->
+            <div class="header__avatar">
+                <div class="dropdown">
+                    <button aria-expanded="false" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" id="myaccount" type="button">
+                        My Account, {{username}}
+                        <span class="fa fa-user-circle" aria-hidden="true"></span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Change Password</a>
+                        <a class="dropdown-item" href="#">
+                            Logout
+                            <span class="fa fa-sign-out" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!--<div class="container body-content">
+
+        <hr />
+    </div>-->
+    {% block content %}{% endblock %}
+
+    <footer class="text-center foot">
+        <p>&copy; {{ year }} - My Flask Application</p>
+    </footer>
+
+    <script src="/static/scripts/jquery-1.10.2.js"></script>
+    <script src="/static/scripts/bootstrap.js"></script>
+    <script src="/static/scripts/respond.js"></script>
+
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>

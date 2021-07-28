@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" class="h-100">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - My Flask Application</title>
+    <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="/static/scripts/modernizr-2.6.2.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body class="h-100">
+    <div class="container h-100">
+        <div class="h-100 row justify-content-center align-items-center">
+            <div class="login100-pic js-tilt" data-tilt style="will-change: transform; transform: perspective(300px) rotateX(0deg) rotateY(0deg);">
+                <img src="C:\Users\Arifs\source\repos\FlaskWebProject1\FlaskWebProject1\img\login.jpg" alt="Login"/>
+            </div>
+            <div class="col-10 col-md-8 col-lg-6">
+                <form class="form-example" action="/login" id="login" method="post">
+                    <h2>LOG-IN / REGISTER</h2>
+                    <div class="form-group">
+                        <label for="username">User Name</label>
+                        <input type="text" autocomplete="off" id="username" name="username" placeholder="username" autofocus class="form-control username" />
+                    </div>
+                    <div class="form-group">    
+                        <label for="password">Password</label>
+                        <input type="password" autocomplete="off" id="password" name="password" placeholder="password" autofocus class="form-control password" />
+                    </div>
+                </form>
+                <button class="btn btn-primary btn-customized" onclick="checkinsert()">Login</button>
+                <p> New user, please register</p>
+                <form class="form-example" action="/register" id="register" method="post">
+                    <button class="btn btn-customized btn-primary" type="submit">Register</button>
+                </form>
+            </div>
+        </div>
+        <script>
+            function checkinsert() {
+                if (document.getElementById("password").value === "" || document.getElementById("username").value === "") {
+                    alert("please enter a valid ID / Passowrd");
+                    /*window.location.href = '/login.html';*/
+                    return;
+                }
+                else {
+                    document.getElementById("login").submit();
+                }
+            }
+        </script>
+        <!--<h1 style="text-align:center">
+            This is the login page
+        </h1>
+            -->
+    </div>
+</body>
+</html>

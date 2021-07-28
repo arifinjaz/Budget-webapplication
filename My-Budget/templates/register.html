@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" class="h-100">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - My Flask Application</title>
+    <script src="https://kit.fontawesome.com/e7593169b5.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/StyleSheet.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
+    <script src="/static/scripts/modernizr-2.6.2.js"></script>
+    <script type="text/javascript" src="\static\scripts\templatescript.js"></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+</head>
+<body class="main-bg">
+    <div class="container h-100">
+        <div class="login-container text-c animated flipInX">
+            <div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul class="flashes" style="background-color:red;color:aliceblue">
+                    {% for message in messages %}
+                    <li>{{ message }}<a href="login">Sign-in</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+
+                <h1 class="logo-badge text-whitesmoke">
+                    <span class="fa fa-check-square"></span>
+                </h1>
+            </div>
+            <h3 class="text-whitesmoke">
+                REGISTER
+                <span class="fas fa-balance-scale"></span>
+            </h3>
+            <div class="container-content">
+                <form class="form-example" action="/register" id="register" method="post">
+                    <div class="form-group">
+                        <label class="label_r" for="fname">First Name</label>
+                        <input type="text" autocomplete="off" id="fname" name="fname" placeholder="First Name" autofocus class="form-control username" />
+                    </div>
+                    <div class="form-group">
+                        <label class="label_r" for="lname">Last Name</label>
+                        <input type="text" autocomplete="off" id="lname" name="lname" placeholder="Last Name" autofocus class="form-control username" />
+                    </div>
+                    <div class="form-group">
+                        <label class="label_r" for="email">Email</label>
+                        <input type="email" autocomplete="off" id="email" name="email" placeholder="Email" autofocus class="form-control username" />
+                    </div>
+                    <div class="form-group">
+                        <label class="label_r" for="username">Desired Username</label>
+                        <input type="text" autocomplete="off" id="username" name="username" placeholder="username" autofocus class="form-control username" />
+                    </div>
+                    <div class="form-group">
+                        <label class="label_r" for="password">Password</label>
+                        <input type="password" autocomplete="off" id="password" name="password" placeholder="password" autofocus class="form-control password" />
+                    </div>
+                    <div class="form-group">
+                        <label class="label_r" for="confirm password">Confirm Password</label>
+                        <input type="password" autocomplete="off" id="confirmpassword" name="confirmpassword" placeholder="confirmpassword" autofocus class="form-control password" />
+                    </div>
+                </form>
+                <button class="form-button button-l margin-b" onclick="checkinsert1();">Register</button>
+                <!--<p> New user, please register</p>
+                <form class="form-example" action="/register" id="register" method="post">
+                    <button class="btn btn-customized btn-primary" type="submit" form="register" value="submit">Register</button>
+                </form>-->
+            </div>
+        </div>
+        <!--<h1 style="text-align:center">
+            This is the login page
+        </h1>
+            -->
+    </div>
+    <footer class="text-center">
+        <p class="margin-t text-whitesmoke"><small>  "My Budget" The one place solution &copy; 2020</small> </p>
+        <a class="text-center" href="#">our privacy policy</a>
+    </footer>
+</body>
+</html>
